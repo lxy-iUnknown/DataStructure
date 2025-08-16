@@ -1,7 +1,7 @@
 package com.lxy.datastructure.collection.queue;
 
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
-import com.lxy.datastructure.collection.common.CollectionFullException;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
+import com.lxy.datastructure.collection.exception.CollectionFullException;
 import com.lxy.datastructure.util.Constants;
 
 public class SequenceQueue implements Queue {
@@ -27,12 +27,6 @@ public class SequenceQueue implements Queue {
         return i;
     }
 
-    private void ensureNotEmpty() {
-        if (isEmpty()) {
-            throw new CollectionEmptyException("Queue is empty");
-        }
-    }
-
     @Override
     public int size() {
         return subtractMod(rear, front);
@@ -45,9 +39,9 @@ public class SequenceQueue implements Queue {
 
     @Override
     public void enqueue(int value) {
-        int newRear = incrementMod(rear);
+        var newRear = incrementMod(rear);
         if (newRear == front) {
-            throw new CollectionFullException("Queue is full");
+            CollectionFullException.throwIt("Queue");
         }
         array[rear] = value;
         rear = newRear;
@@ -55,15 +49,19 @@ public class SequenceQueue implements Queue {
 
     @Override
     public int dequeue() {
-        ensureNotEmpty();
-        int value = front();
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Queue");
+        }
+        var value = front();
         front = incrementMod(front);
         return value;
     }
 
     @Override
     public int front() {
-        ensureNotEmpty();
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Queue");
+        }
         return array[front];
     }
 }

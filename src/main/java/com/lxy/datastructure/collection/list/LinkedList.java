@@ -1,15 +1,13 @@
 package com.lxy.datastructure.collection.list;
 
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
 import com.lxy.datastructure.collection.common.Node;
-import com.lxy.datastructure.collection.util.Util;
+import com.lxy.datastructure.collection.common.NodeUtil;
 
 import java.util.Objects;
 import java.util.function.IntConsumer;
 
 public class LinkedList implements List {
-
-    private final Node head = Util.createHeadNode();
+    private final Node head = NodeUtil.createHeadNode();
     private int length;
 
     private Node findHeadNode(int index) {
@@ -39,16 +37,16 @@ public class LinkedList implements List {
 
     @Override
     public void insert(int index, int value) {
-        int newLength = length + 1;
+        var newLength = length + 1;
         Objects.checkIndex(index, newLength);
-        Util.insertNextNode(findHeadNode(index), value);
+        NodeUtil.insertNextNode(findHeadNode(index), value);
         length = newLength;
     }
 
     @Override
     public int remove(int index) {
         Objects.checkIndex(index, length);
-        Node next = Util.removeNextNode(findHeadNode(index));
+        var next = NodeUtil.removeNextNode(findHeadNode(index));
         length--;
         return next.value;
     }
@@ -61,8 +59,8 @@ public class LinkedList implements List {
 
     @Override
     public int find(int value) {
-        Node node = head.next;
-        for (int i = 0; i < length; i++) {
+        var node = head.next;
+        for (var i = 0; i < length; i++) {
             if (node.value == value) {
                 return i;
             }
@@ -73,8 +71,8 @@ public class LinkedList implements List {
 
     @Override
     public void traverse(IntConsumer callback) {
-        Node node = head.next;
-        for (int i = 0; i < length; i++) {
+        var node = head.next;
+        for (var i = 0; i < length; i++) {
             callback.accept(node.value);
             node = node.next;
         }

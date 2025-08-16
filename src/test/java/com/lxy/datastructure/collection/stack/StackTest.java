@@ -1,9 +1,10 @@
 package com.lxy.datastructure.collection.stack;
 
 import com.lxy.datastructure.collection.CollectionTest;
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
-import com.lxy.datastructure.collection.common.CollectionFullException;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
+import com.lxy.datastructure.collection.exception.CollectionFullException;
 import com.lxy.datastructure.collection.util.TestUtil;
+import com.lxy.datastructure.expression.Stack;
 import com.lxy.datastructure.util.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public abstract class StackTest extends CollectionTest<Stack> {
         for (int i = 0; i < Constants.COLLECTION_CAPACITY; i++) {
             int finalI = i;
             Assertions.assertDoesNotThrow(() -> stack.push(
-                    TestUtil.element(finalI)),
+                            TestUtil.element(finalI)),
                     "[Stack.push]An exception is thrown");
         }
         return stack;

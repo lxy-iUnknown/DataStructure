@@ -1,6 +1,6 @@
-package com.lxy.datastructure.collection.stack;
+package com.lxy.datastructure.expression;
 
-import com.lxy.datastructure.collection.util.Contract;
+import com.lxy.datastructure.util.Contract;
 
 public class Token {
     public static final Token ADD = symbolToken(TokenKind.ADD);
@@ -11,32 +11,32 @@ public class Token {
     public static final Token RIGHT_BRACKET = symbolToken(TokenKind.RIGHT_BRACKET);
 
     private final int value;
-    private final int kind;
+    private final TokenKind kind;
 
-    private Token(int value, int kind) {
+    private Token(int value, TokenKind kind) {
         this.value = value;
         this.kind = kind;
-    }
-
-    private static Token symbolToken(int kind) {
-        return new Token(0, kind);
     }
 
     public Token(int value) {
         this(value, TokenKind.NUMBER);
     }
 
+    private static Token symbolToken(TokenKind kind) {
+        return new Token(0, kind);
+    }
+
     public int getValue() {
         return value;
     }
 
-    public int getKind() {
+    public TokenKind getKind() {
         return kind;
     }
 
     @Override
     public int hashCode() {
-        return kind == TokenKind.NUMBER ? value : kind;
+        return kind == TokenKind.NUMBER ? value : kind.hashCode();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Token {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.append("Token{");
         switch (kind) {
             case TokenKind.NUMBER -> sb.append(value);

@@ -1,8 +1,8 @@
 package com.lxy.datastructure.collection.queue;
 
 import com.lxy.datastructure.collection.CollectionTest;
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
-import com.lxy.datastructure.collection.common.CollectionFullException;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
+import com.lxy.datastructure.collection.exception.CollectionFullException;
 import com.lxy.datastructure.collection.util.TestUtil;
 import com.lxy.datastructure.util.Constants;
 import org.junit.jupiter.api.Assertions;

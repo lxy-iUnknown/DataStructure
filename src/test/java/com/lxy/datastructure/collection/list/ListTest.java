@@ -1,7 +1,7 @@
 package com.lxy.datastructure.collection.list;
 
 import com.lxy.datastructure.collection.CollectionTest;
-import com.lxy.datastructure.collection.common.CollectionFullException;
+import com.lxy.datastructure.collection.exception.CollectionFullException;
 import com.lxy.datastructure.collection.util.TestUtil;
 import com.lxy.datastructure.util.Constants;
 import com.lxy.datastructure.util.MutableInt;
@@ -92,7 +92,8 @@ public abstract class ListTest extends CollectionTest<List> {
             Assertions.assertDoesNotThrow(() -> list.set(finalI,
                             TestUtil.newElement(finalI)),
                     "[List.set]An exception is thrown");
-        }for (int i = 0; i < Constants.COLLECTION_CAPACITY; i++) {
+        }
+        for (int i = 0; i < Constants.COLLECTION_CAPACITY; i++) {
             Assertions.assertEquals(TestUtil.newElement(i),
                     list.get(i), "[List.set]Failed to change value");
         }
@@ -201,7 +202,7 @@ public abstract class ListTest extends CollectionTest<List> {
                     value, "[List.traverse]Elements do not equal");
             index.increment();
         });
-        Assertions.assertEquals(index.getValue(), Constants.COLLECTION_CAPACITY,
+        Assertions.assertEquals(Constants.COLLECTION_CAPACITY, index.getValue(),
                 "[List.traverse]Traverse is not implemented");
     }
 }

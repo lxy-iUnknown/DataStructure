@@ -1,4 +1,4 @@
-package com.lxy.datastructure.collection.util;
+package com.lxy.datastructure.util;
 
 public class Contract {
 

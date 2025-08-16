@@ -9,8 +9,8 @@ public class Node {
     }
 
     public static Node findNode(Node start, int index) {
-        Node node = start;
-        for (int i = 0; i < index; i++) {
+        var node = start;
+        for (var i = 0; i < index; i++) {
             node = node.next;
         }
         return node;

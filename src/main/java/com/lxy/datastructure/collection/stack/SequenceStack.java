@@ -1,7 +1,8 @@
 package com.lxy.datastructure.collection.stack;
 
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
-import com.lxy.datastructure.collection.common.CollectionFullException;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
+import com.lxy.datastructure.collection.exception.CollectionFullException;
+import com.lxy.datastructure.expression.Stack;
 import com.lxy.datastructure.util.Constants;
 
 public class SequenceStack implements Stack {
@@ -14,12 +15,6 @@ public class SequenceStack implements Stack {
         top = 0;
     }
 
-    private void ensureNotEmpty() {
-        if (top <= 0) {
-            throw new CollectionEmptyException("Stack is empty");
-        }
-    }
-
     @Override
     public int size() {
         return top;
@@ -28,7 +23,7 @@ public class SequenceStack implements Stack {
     @Override
     public void push(int value) {
         if (top + 1 > array.length) {
-            throw new CollectionFullException("Stack is full");
+            CollectionFullException.throwIt("Stack");
         }
         array[top++] = value;
     }
@@ -42,7 +37,9 @@ public class SequenceStack implements Stack {
 
     @Override
     public int peek() {
-        ensureNotEmpty();
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Stack");
+        }
         return array[top - 1];
     }
 }

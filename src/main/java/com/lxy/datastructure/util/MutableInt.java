@@ -19,20 +19,12 @@ public class MutableInt {
         this.value = value;
     }
 
-    public void addValue(int value) {
-        this.value += value;
-    }
-
-    public void subtractValue(int value) {
-        this.value -= value;
-    }
-
     public void increment() {
         value++;
     }
 
-    public void decrement() {
-        value--;
+    public int incrementAndGet() {
+        return value++;
     }
 
     @Override

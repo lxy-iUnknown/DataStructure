@@ -1,42 +1,41 @@
 package com.lxy.datastructure.collection.stack;
 
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
 import com.lxy.datastructure.collection.common.Node;
-import com.lxy.datastructure.collection.util.Util;
+import com.lxy.datastructure.collection.common.NodeUtil;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
+import com.lxy.datastructure.expression.Stack;
 
 public class LinkedStack implements Stack {
     // 栈顶指针为链表头节点
-    private final Node head = Util.createHeadNode();
-    private int top;
-
-    private void ensureNotEmpty() {
-        if (top <= 0) {
-            throw new CollectionEmptyException("Stack is empty");
-        }
-    }
+    private final Node head = NodeUtil.createHeadNode();
+    private int size;
 
     @Override
     public int size() {
-        return top;
+        return size;
     }
 
     @Override
     public void push(int value) {
-        Util.insertNextNode(head, value);
-        top++;
+        NodeUtil.insertNextNode(head, value);
+        size++;
     }
 
     @Override
     public int pop() {
-        ensureNotEmpty();
-        Node topNode = Util.removeNextNode(head);
-        top--;
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Stack");
+        }
+        var topNode = NodeUtil.removeNextNode(head);
+        size--;
         return topNode.value;
     }
 
     @Override
     public int peek() {
-        ensureNotEmpty();
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Stack");
+        }
         return head.next.value;
     }
 }

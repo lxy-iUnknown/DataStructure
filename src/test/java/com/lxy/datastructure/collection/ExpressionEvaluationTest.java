@@ -1,7 +1,7 @@
 package com.lxy.datastructure.collection;
 
-import com.lxy.datastructure.collection.stack.ExpressionEvaluation;
-import com.lxy.datastructure.collection.stack.Token;
+import com.lxy.datastructure.expression.ExpressionEvaluation;
+import com.lxy.datastructure.expression.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

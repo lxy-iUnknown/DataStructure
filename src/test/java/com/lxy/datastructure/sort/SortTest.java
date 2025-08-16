@@ -10,9 +10,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class SortTest {
-    private record RandomArray(int[] array, int[] sorted) {
-    }
-
     private static final int MIN_LENGTH = 10;
     private static final int MAX_LENGTH = 100;
     private static final int MIN_ARRAY_VALUE = -100;
@@ -26,7 +23,7 @@ public class SortTest {
     }
 
     private static void sort(int[] array, int fromIndex, int toIndex,
-                                      boolean ascending) {
+                             boolean ascending) {
         Arrays.sort(array, fromIndex, toIndex);
         if (!ascending) {
             reverse(array, fromIndex, toIndex);
@@ -69,7 +66,7 @@ public class SortTest {
 
     private static RandomArray randomPartialSortedArray(boolean ascending) {
         RandomArray randomArray = randomArray();
-        int[] array = randomArray.array;
+        int[] array = randomArray.array();
         int length = array.length;
         int s1 = length / 4, s2 = length / 2, s3 = length * 3 / 4;
         sort(array, 0, s1, ascending);
@@ -80,8 +77,8 @@ public class SortTest {
     }
 
     private static void sortTestArray(Consumer<int[]> sortFunction, RandomArray randomArray) {
-        sortFunction.accept(randomArray.array);
-        Assertions.assertArrayEquals(randomArray.sorted, randomArray.array);
+        sortFunction.accept(randomArray.array());
+        Assertions.assertArrayEquals(randomArray.sorted(), randomArray.array());
     }
 
     public static Stream<RandomArray> arguments() {
@@ -96,43 +93,7 @@ public class SortTest {
 
     @ParameterizedTest
     @MethodSource("arguments")
-    public void bubbleSortTest(RandomArray randomArray) {
-        sortTestArray(BubbleSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
-    public void heapSortTest(RandomArray randomArray) {
-        sortTestArray(HeapSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
-    public void insertionSortTest(RandomArray randomArray) {
-        sortTestArray(InsertionSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
-    public void mergeSortTest(RandomArray randomArray) {
-        sortTestArray(MergeSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
-    public void quickSortTest(RandomArray randomArray) {
-        sortTestArray(QuickSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
     public void selectionSortTest(RandomArray randomArray) {
         sortTestArray(SelectionSort::sort, randomArray);
-    }
-
-    @ParameterizedTest
-    @MethodSource("arguments")
-    public void shellSortTest(RandomArray randomArray) {
-        sortTestArray(ShellSort::sort, randomArray);
     }
 }

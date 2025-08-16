@@ -1,8 +1,8 @@
 package com.lxy.datastructure.collection.queue;
 
-import com.lxy.datastructure.collection.common.CollectionEmptyException;
 import com.lxy.datastructure.collection.common.Node;
-import com.lxy.datastructure.collection.util.Util;
+import com.lxy.datastructure.collection.common.NodeUtil;
+import com.lxy.datastructure.collection.exception.CollectionEmptyException;
 
 public class LinkedQueue implements Queue {
     // 队头为链表头节点，队尾为链表最后一个结点
@@ -11,15 +11,9 @@ public class LinkedQueue implements Queue {
     private int size;
 
     public LinkedQueue() {
-        Node head = Util.createHeadNode();
+        var head = NodeUtil.createHeadNode();
         front = head;
         rear = head;
-    }
-
-    private void ensureNotEmpty() {
-        if (size <= 0) {
-            throw new CollectionEmptyException("Queue is empty");
-        }
     }
 
     @Override
@@ -29,14 +23,16 @@ public class LinkedQueue implements Queue {
 
     @Override
     public void enqueue(int value) {
-        rear = Util.insertAndReturnNextNode(rear, value);
+        rear = NodeUtil.insertAndReturnNextNode(rear, value);
         size++;
     }
 
     @Override
     public int dequeue() {
-        ensureNotEmpty();
-        Node next = Util.removeNextNode(front);
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Queue");
+        }
+        var next = NodeUtil.removeNextNode(front);
         size--;
         if (size == 0) {
             // 最后一个结点出队，修改队尾指针
@@ -47,7 +43,9 @@ public class LinkedQueue implements Queue {
 
     @Override
     public int front() {
-        ensureNotEmpty();
+        if (isEmpty()) {
+            CollectionEmptyException.throwIt("Queue");
+        }
         return front.next.value;
     }
 }
